@@ -31,8 +31,9 @@ public class ConvertidorInfixPostfix {
                     resultado.append(stack.pop()).append(" ");
                 }
                 stack.pop(); 
-            }else if(isOperator(c)){
-                while(!stack.isEmpty() && precedence(stack.peek()) >= precedence(String.valueOf(c))){
+            }else if(isOperator(c)){ //Si es un operador
+                while(!stack.isEmpty() && precedence(stack.peek()) >= precedence(String.valueOf(c))){ //Mientras el operador en la cima de la pila tenga mayor o igual precedencia 
+                // que el operador actual, se saca de la pila y se añade al resultado
                     resultado.append(stack.pop()).append(" ");
                 }
                 stack.push(String.valueOf(c));
@@ -50,7 +51,7 @@ public class ConvertidorInfixPostfix {
         return c == '+' || c == '-' || c == '*' || c == '/';
     }
 
-    private int precedence(String operator){
+    private int precedence(String operator){ //Se asigna una precedencia a cada operador, * y / tienen mayor precedencia que + y -
         switch(operator){
         case "+":
         case "-":
