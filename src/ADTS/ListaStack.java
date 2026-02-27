@@ -14,20 +14,18 @@ public class ListaStack<T> extends AbstractStack<T> {
 
     @Override
     public T pop(){
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new RuntimeException("La pila está vacia");
-        }else{
-            return list.removeFirst();
         }
+        size--;                   // <- decrementa aquí
+        return list.removeFirst();
     }
 
     @Override
     public T peek(){
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new RuntimeException("La pila esta vacia");
-        }else{
-            size--;
-            return list.getFirst();
         }
+        return list.getFirst();   // no modifica size
     }
 }
