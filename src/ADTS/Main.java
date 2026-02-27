@@ -63,5 +63,6 @@ public class Main {
         System.out.println("\nExpresión Infix: " + expression);
         System.out.println("Expresión Postfix: " + postfix);
         System.out.println("Resultado: " + result);
+        scanner.close();
     }
 }
