@@ -1,4 +1,3 @@
-import java.util.Stack;
 public class ConvertidorInfixPostfix {
     public String convert(String expression, Stack<String> stackForConversion){
         

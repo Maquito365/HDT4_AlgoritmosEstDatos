@@ -1,4 +1,3 @@
-import java.util.Stack;
 public class PostfixEvaluator {
     public int evaluate(String postfix, Stack<Integer> stack){
         String[] tokens = postfix.split(" ");
