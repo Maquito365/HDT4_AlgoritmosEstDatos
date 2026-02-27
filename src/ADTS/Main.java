@@ -12,6 +12,7 @@ public class Main {
         System.out.println("1. ArrayList");
         System.out.println("2. Vector");
         System.out.println("3. Lista");
+        System.out.print("Ingrese su opción: ");
 
         int stackType = scanner.nextInt();
         int listType = 0;
@@ -20,6 +21,7 @@ public class Main {
             System.out.println("Seleccione implementación de Lista:");
             System.out.println("1. Simplemente enlazada");
             System.out.println("2. Doblemente enlazada");
+            System.out.print("Ingrese su opción: ");
 
             listType = scanner.nextInt();
         }
@@ -29,6 +31,7 @@ public class Main {
         System.out.println("¿Cómo desea ingresar la expresión?");
         System.out.println("1. Leer desde archivo datos.txt");
         System.out.println("2. Ingresar manualmente");
+        System.out.print("Ingrese su opción: ");
 
         int inputOption = scanner.nextInt();
         scanner.nextLine();
@@ -39,7 +42,36 @@ public class Main {
             try {
                 File file = new File("datos.txt");
                 Scanner fileScanner = new Scanner(file);
-                expression = fileScanner.nextLine();
+                while (fileScanner.hasNextLine()) {
+
+                    expression = fileScanner.nextLine().trim();
+
+                    if (expression.isEmpty()) {
+                        continue; 
+                    }
+
+                    Stack<String> stackConvert =
+                            StackFactory.createStack(stackType, listType);
+
+                    ConvertidorInfixPostfix converter =
+                            new ConvertidorInfixPostfix();
+
+                    String postfix =
+                            converter.convert(expression, stackConvert);
+
+                    Stack<Integer> stackEvaluate =
+                            StackFactory.createStack(stackType, listType);
+
+                    PostfixEvaluator evaluator =
+                            new PostfixEvaluator();
+
+                    int result =
+                            evaluator.evaluate(postfix, stackEvaluate);
+
+                    System.out.println("\nExpresión Infix: " + expression);
+                    System.out.println("Expresión Postfix: " + postfix);
+                    System.out.println("Resultado: " + result);
+                }
                 fileScanner.close();
             } catch (FileNotFoundException e) {
                 System.out.println("Archivo no encontrado.");
@@ -47,7 +79,7 @@ public class Main {
             }
         } else {
             System.out.println("Ingrese la expresión infix:");
-            expression = scanner.nextLine();
+            expression = scanner.nextLine();   
         }
 
         Stack<String> stackConvert = StackFactory.createStack(stackType, listType);
