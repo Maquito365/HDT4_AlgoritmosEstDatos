@@ -1,6 +1,6 @@
 import java.util.Stack;
 public class ConvertidorInfixPostfix {
-    public String convert(String expression, Stack<String> stack){
+    public String convert(String expression, Stack<String> stackForConversion){
         
         StringBuilder resultado = new StringBuilder();
         int i = 0;
@@ -26,24 +26,24 @@ public class ConvertidorInfixPostfix {
 
             //Si es paréntesis izquierdo
             if(c == '('){
-                stack.push(String.valueOf(c));
+                stackForConversion.push(String.valueOf(c));
             }else if(c== ')'){
-                while(!stack.isEmpty() && !stack.peek().equals("(")){
-                    resultado.append(stack.pop()).append(" ");
+                while(!stackForConversion.isEmpty() && !stackForConversion.peek().equals("(")){
+                    resultado.append(stackForConversion.pop()).append(" ");
                 }
-                stack.pop(); 
+                stackForConversion.pop(); 
             }else if(isOperator(c)){ //Si es un operador
-                while(!stack.isEmpty() && precedence(stack.peek()) >= precedence(String.valueOf(c))){ //Mientras el operador en la cima de la pila tenga mayor o igual precedencia 
+                while(!stackForConversion.isEmpty() && precedence(stackForConversion.peek()) >= precedence(String.valueOf(c))){ //Mientras el operador en la cima de la pila tenga mayor o igual precedencia 
                 // que el operador actual, se saca de la pila y se añade al resultado
-                    resultado.append(stack.pop()).append(" ");
+                    resultado.append(stackForConversion.pop()).append(" ");
                 }
-                stack.push(String.valueOf(c));
+                stackForConversion.push(String.valueOf(c));
             }
             i++;
 
         }
-        while(!stack.isEmpty()){
-            resultado.append(stack.pop()).append(" ");
+        while(!stackForConversion.isEmpty()){
+            resultado.append(stackForConversion.pop()).append(" ");
         }
         return resultado.toString().trim();
     }
